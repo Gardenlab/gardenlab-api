@@ -2,12 +2,18 @@ openapi: 3.0.2
 info:
   title: publicapi API
   version: '1.0'
+  contact:
+    name: Maxime Barthelemy
+    email: maxime.barthelemy@gardenlab.io
+  description: >-
+    Official documentation of the API of Gardenlab. This API allows customers to
+    manage the NFT of their collection.
 servers:
   - url: https://demo.gardenlab.io/api/v1
     description: The sandbox server (uses test data)
   - url: https://app.gardenlab.io/api/v1
     description: The production server (uses live data)
-  - url: http://localhost:5001/gardenlab-test/europe-west1/
+  - url: http://localhost:5001/gardenlab-test/europe-west1
     description: The emulator server
 components:
   securitySchemes:
@@ -49,7 +55,7 @@ components:
             request parameters)
           example: false
         authScanCount:
-          type: boolean
+          type: number
           description: >-
             Number of interactions that can be applied on one NFT. (-1 if
             infinity)
@@ -127,7 +133,7 @@ paths:
                         tokenId:
                           type: string
                           description: The NFT's token ID.
-                          example: 123
+                          example: '123'
                         attributes:
                           type: object
                           description: The NFT's attributes object.
@@ -153,8 +159,11 @@ paths:
           description: An internal error occured. Please verify the message
       security:
         - bearerAuth: []
+      tags:
+        - NFT
   /newActionForUser:
     post:
+      operationId: newActionForUser
       description: >-
         Notifies Gardenlab that a user has performed an action in the partner
         ecosystem
@@ -211,7 +220,7 @@ paths:
                   tokenId:
                     type: string
                     description: The NFT token ID.
-                    example: 123
+                    example: '123'
                   attributes:
                     type: object
                     description: The NFT attributes.
@@ -230,8 +239,11 @@ paths:
           description: The API key is missing or incorrect.
         '500':
           description: An internal error occured. Check the error message.
+      tags:
+        - Interaction
   /saveActionInteraction:
     post:
+      operationId: saveActionInteraction
       description: >-
         Create or update a new interaction and specify the action_id to use to
         apply the interaction.
@@ -288,8 +300,11 @@ paths:
           description: The API key is missing or incorrect.
         '500':
           description: An internal error occured. Check the error message.
+      tags:
+        - Interaction
   /getNftByTokenId:
     get:
+      operationId: getNftByTokenId
       description: Retrieve the information on a specific NFT of a contract.
       parameters:
         - in: query
@@ -311,8 +326,11 @@ paths:
           description: The API key is missing or incorrect.
         '404':
           description: The specified NFT cannot be found in Gardenlab database.
+      tags:
+        - NFT
   /getNft:
     get:
+      operationId: getNft
       description: >-
         Notifies Gardenlab that a user has performed an action in the partner
         ecosystem
@@ -332,8 +350,11 @@ paths:
       responses:
         '200':
           description: Returns an object containing the NFT created for the user.
+      tags:
+        - NFT
   /getAllInteractions:
     get:
+      operationId: getAllInteractions
       description: Retrieve all the interactions for a contract.
       parameters:
         - in: query
@@ -372,5 +393,18 @@ paths:
           description: The API key is missing or incorrect.
         '500':
           description: An internal error occured. Check the error message.
+      tags:
+        - Interaction
 externalDocs:
   url: https://docs.gardenlab.io/api
+tags:
+  - name: NFT
+    description: ''
+    externalDocs:
+      description: ''
+      url: ''
+  - name: Interaction
+    description: ''
+    externalDocs:
+      description: ''
+      url: ''
