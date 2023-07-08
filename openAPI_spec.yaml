@@ -241,6 +241,8 @@ paths:
           description: An internal error occured. Check the error message.
       tags:
         - Interaction
+      security:
+        - bearerAuth: []
   /saveActionInteraction:
     post:
       operationId: saveActionInteraction
@@ -302,6 +304,8 @@ paths:
           description: An internal error occured. Check the error message.
       tags:
         - Interaction
+      security:
+        - bearerAuth: []
   /getNftByTokenId:
     get:
       operationId: getNftByTokenId
@@ -328,6 +332,8 @@ paths:
           description: The specified NFT cannot be found in Gardenlab database.
       tags:
         - NFT
+      security:
+        - bearerAuth: []
   /getNft:
     get:
       operationId: getNft
@@ -352,6 +358,8 @@ paths:
           description: Returns an object containing the NFT created for the user.
       tags:
         - NFT
+      security:
+        - bearerAuth: []
   /getAllInteractions:
     get:
       operationId: getAllInteractions
@@ -395,6 +403,8 @@ paths:
           description: An internal error occured. Check the error message.
       tags:
         - Interaction
+      security:
+        - bearerAuth: []
 externalDocs:
   url: https://docs.gardenlab.io/api
 tags:
