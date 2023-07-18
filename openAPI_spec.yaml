@@ -115,6 +115,30 @@ paths:
                       contract/collection/customer (ex: the event ID or
                       'subscription')
                     example: summer_party
+                  additional_fields:
+                    type: object
+                    properties:
+                      expiration_date:
+                        type: string
+                        description: >-
+                          A string representing a date, after which the card can
+                          no longer be upgraded applying interactions
+                        example: '2023-09-18T12:34:56.123Z'
+                      max_level:
+                        type: number
+                        description: >-
+                          The maximum level the card can reach. Any interaction
+                          bumping the card level above this value will fail.
+                        example: 15
+                    description: >-
+                      Additionnal fields that can be set for customized
+                      behaviors.
+                required:
+                  - origin
+                  - email
+                  - uid
+                  - user_category_id
+                  - contract_id
       responses:
         '200':
           description: Returns an array of object containing the NFTs created for the user.
