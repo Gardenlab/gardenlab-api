@@ -429,6 +429,104 @@ paths:
         - Interaction
       security:
         - bearerAuth: []
+  /getAllInteractionScansForToken:
+    get:
+      operationId: getAllInteractionScansForToken
+      description: Getting all the actions applied on a NFT
+      parameters:
+        - in: query
+          name: origin
+          description: The partner's name.
+          example: spacex
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: tokenId
+          description: The token ID to fetch the interactions for
+          example: '123'
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: contract
+          description: The contract for which to retrieve the interactions
+          example: '0x0123456789abcdef0123456789abcdef01234567'
+          schema:
+            type: string
+        - in: query
+          name: contract_id
+          description: >-
+            The contract ID associated with a specific
+            contract/collection/customer (ex: the event ID or 'subscription')
+          example: summer_party
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns a list with all the interactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    at:
+                      type: object
+                      properties:
+                        _seconds:
+                          type: number
+                          description: Seconds
+                        _nanoseconds:
+                          type: number
+                          description: Nanoseconds
+                      required:
+                        - _seconds
+                        - _nanoseconds
+                      description: Date at which the interaction occured
+                    xpBefore:
+                      type: number
+                      description: XP before the interaction
+                    xpAfter:
+                      type: number
+                      description: XP after the interaction
+                    lvlBefore:
+                      type: number
+                      description: Level before the interaction
+                    lvlAfter:
+                      type: number
+                      description: Level after the interaction
+                    maxLvlReached:
+                      type: boolean
+                      description: Flag indicating the max level has been reached
+                    interactionName:
+                      type: string
+                      description: The name of the interaction
+                    type:
+                      type: string
+                      description: The type of the interaction (attribute name)
+                  required:
+                    - at
+                    - xpBefore
+                    - xpAfter
+                    - lvlBefore
+                    - lvlAfter
+                    - maxLvlReached
+                    - interactionName
+                    - type
+                  description: The interaction details
+                description: A list of the interactions
+        '400':
+          description: There is an error in the query.
+        '403':
+          description: The API key is missing or incorrect.
+        '500':
+          description: An internal error occured. Check the error message.
+      tags:
+        - Interaction
+      security:
+        - bearerAuth: []
 externalDocs:
   url: https://docs.gardenlab.io/api
 tags:
