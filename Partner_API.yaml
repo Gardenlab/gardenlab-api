@@ -69,6 +69,40 @@ components:
       required:
         - type
         - name
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            status:
+              type: number
+              description: The corresponding HTTP status code
+              example: 123
+            code:
+              type: string
+              description: The error code
+              example: NFT_IS_EXPIRED
+              enum:
+                - QUERY_INCOMPLETE
+                - FORBIDDEN
+                - RESOURCE_NOT_FOUND
+                - MISC_ERROR
+                - MAX_LEVEL_REACHED
+                - INTERACTION_ALREADY_CONSUMED
+                - INTERACTION_NO_LONGER_VALID
+                - INTERACTION_NOT_YET_VALID
+                - NFT_IS_EXPIRED
+            message:
+              type: string
+              description: A more verbose description of the error
+              example: The NFT is expired and cannot be modified
+          required:
+            - status
+            - message
+            - code
+      required:
+        - error
 security:
   - bearerAuth: []
 paths:
@@ -177,10 +211,22 @@ paths:
                           description: The error message
         '400':
           description: The request is not valid or an error occured.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '403':
           description: The API key is missing or incorrect.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '500':
           description: An internal error occured. Please verify the message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
         - bearerAuth: []
       tags:
@@ -259,10 +305,22 @@ paths:
                     description: The owner email address.
         '400':
           description: The request is malformed. Please verify the content of the body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '403':
           description: The API key is missing or incorrect.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '500':
           description: An internal error occured. Check the error message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       tags:
         - Interaction
       security:
@@ -322,10 +380,22 @@ paths:
                     example: IQ0LuundpiAvnfDcQ21Y
         '400':
           description: The request is malformed. Please verify the content of the body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '403':
           description: The API key is missing or incorrect.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '500':
           description: An internal error occured. Check the error message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       tags:
         - Interaction
       security:
@@ -350,10 +420,22 @@ paths:
           description: Returns an object containing the NFT information.
         '400':
           description: There is an error in the query.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '403':
           description: The API key is missing or incorrect.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
           description: The specified NFT cannot be found in Gardenlab database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       tags:
         - NFT
       security:
@@ -421,10 +503,22 @@ paths:
                   $ref: '#/components/schemas/Interaction'
         '400':
           description: There is an error in the query.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '403':
           description: The API key is missing or incorrect.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '500':
           description: An internal error occured. Check the error message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       tags:
         - Interaction
       security:
@@ -519,10 +613,22 @@ paths:
                 description: A list of the interactions
         '400':
           description: There is an error in the query.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '403':
           description: The API key is missing or incorrect.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '500':
           description: An internal error occured. Check the error message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       tags:
         - Interaction
       security:
