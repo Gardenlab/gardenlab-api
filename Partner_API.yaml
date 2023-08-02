@@ -109,13 +109,13 @@ paths:
   /newUserForPartner:
     post:
       operationId: newUserForPartner
-      x-google-backend:
-        address: >-
-          https://europe-west1-gardenlab-test.cloudfunctions.net/newUserForPartner
       description: >-
         Notifies Gardenlab that a user has been created in the database. Create
         and reserve a NFT for the user, if the conditions are respected. The NFT
         associated to `user_category_id` will be used for this user.
+
+        This endpoint supports body with an array of requests or a single
+        request. The response will be an array or a single body accordingly.
       requestBody:
         required: true
         description: The information about the event and the user to create a NFT for.
@@ -204,11 +204,8 @@ paths:
                         email:
                           type: string
                           description: The owner of the NFT's email.
-                    - type: object
-                      properties:
-                        error:
-                          type: string
-                          description: The error message
+                    - $ref: '#/components/schemas/Error'
+                  type: string
         '400':
           description: The request is not valid or an error occured.
           content:
