@@ -1,7 +1,7 @@
 openapi: 3.0.2
 info:
-  title: publicapi API
-  version: '1.0'
+  title: Gardenlab API
+  version: 'v1'
   contact:
     name: Maxime Barthelemy
     email: maxime.barthelemy@gardenlab.io
@@ -13,8 +13,8 @@ servers:
     description: The sandbox server (uses test data)
   - url: https://app.gardenlab.io/api/v1
     description: The production server (uses live data)
-  - url: http://localhost:5001/gardenlab-test/europe-west1
-    description: The emulator server
+  # - url: http://localhost:5001/gardenlab-test/europe-west1
+  #   description: The emulator server
 components:
   securitySchemes:
     bearerAuth:
@@ -437,32 +437,32 @@ paths:
         - NFT
       security:
         - bearerAuth: []
-  /getNft:
-    get:
-      operationId: getNft
-      description: >-
-        Notifies Gardenlab that a user has performed an action in the partner
-        ecosystem
-      parameters:
-        - in: query
-          name: offset
-          schema:
-            type: integer
-          description: >-
-            The number of items to skip before starting to collect the result
-            set
-        - in: query
-          name: limit
-          schema:
-            type: integer
-          description: The numbers of items to return
-      responses:
-        '200':
-          description: Returns an object containing the NFT created for the user.
-      tags:
-        - NFT
-      security:
-        - bearerAuth: []
+  # /getNft:
+  #   get:
+  #     operationId: getNft
+  #     description: >-
+  #       Notifies Gardenlab that a user has performed an action in the partner
+  #       ecosystem
+  #     parameters:
+  #       - in: query
+  #         name: offset
+  #         schema:
+  #           type: integer
+  #         description: >-
+  #           The number of items to skip before starting to collect the result
+  #           set
+  #       - in: query
+  #         name: limit
+  #         schema:
+  #           type: integer
+  #         description: The numbers of items to return
+  #     responses:
+  #       '200':
+  #         description: Returns an object containing the NFT created for the user.
+  #     tags:
+  #       - NFT
+  #     security:
+  #       - bearerAuth: []
   /getAllInteractions:
     get:
       operationId: getAllInteractions
