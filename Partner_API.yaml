@@ -721,6 +721,124 @@ paths:
       security:
         - bearerAuth: []
     parameters: []
+  /mintTokenForUser:
+    post:
+      description: >-
+        Mint an existing token to a user. The token must be created and
+        allocated to a user, through his email address. 
+
+        The NFT will then be minted to the blockchain address specified in the
+        request. 
+
+        The UID of the user must also be specified for additional security.
+      operationId: mintTokenForUser
+      tags:
+        - NFT
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                origin:
+                  type: string
+                  description: The partner's name.
+                  example: spacex
+                email:
+                  type: string
+                  description: >-
+                    The user's email address. The NFT must have been created
+                    with this email.
+                  example: max@gardenlab.io
+                uid:
+                  type: string
+                  description: The user identification.
+                  example: u123456789
+                user_addr:
+                  type: string
+                  description: >-
+                    The blockchain address of the user. The NFT will be minted
+                    to this address.
+                  example: '0x0123456789abcdef0123456789abcdef01234567'
+                contract_id:
+                  type: string
+                  description: >-
+                    The contract ID associated with a specific
+                    contract/collection/customer (ex: the event ID or
+                    'subscription')
+                  example: summer_party
+                contract:
+                  type: string
+                  description: >-
+                    The contract address. Required if contract_id is not
+                    specified. The contract must be associated to the partner.
+                  example: '0x0123456789abcdef0123456789abcdef01234567'
+                token_id:
+                  type: string
+                  description: >-
+                    The token ID to be minted. It must be reserved to the user.
+                    If not specified, the token ID will be searched using the
+                    user email.
+                  example: '123'
+              required:
+                - origin
+                - contract_id
+                - user_addr
+                - email
+                - uid
+      responses:
+        '200':
+          description: >-
+            Returns the basic information of the mint. The mint is not yet
+            processed in the blockchain.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userAddr:
+                    type: string
+                    description: The user address to which the NFT will be minted.
+                    example: '0x0123456789abcdef0123456789abcdef01234567'
+                  contract:
+                    type: string
+                    description: The contract address
+                    example: '0x0123456789abcdef0123456789abcdef01234567'
+                  tokenId:
+                    type: string
+                    description: The token ID being minted
+                    example: '123'
+                  tokenUrl:
+                    type: string
+                    description: The token URL.
+                    example: >-
+                      ipfs://bafyreid2zqtuvrcemlhesksvibci7xaphbvw4ytun5xykdjancfaum2l3i/metadata.json
+                required:
+                  - userAddr
+                  - tokenUrl
+                  - contract
+                  - tokenId
+        '400':
+          description: The request is not valid or an error occured.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: The API key is missing or incorrect.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: An internal error occured. Please verify the message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
 externalDocs:
   url: https://docs.gardenlab.io/api
 tags:
